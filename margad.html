@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior UI/UX Designer & Marketing Strategist Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/three@0.132.2/build/three.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.11.4/dist/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --neon-mint: #1affc9;
+            --royal-purple: #815bff;
+            --sunrise-pink: #ff6b9a;
+            --tangerine: #ff8a3d;
+            --electric-cyan: #00e5ff;
+            --dark-bg: #0f0f1a;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, var(--sunrise-pink), var(--tangerine), var(--electric-cyan));
+            background-size: 400% 400%;
+            animation: gradientShift 45s ease infinite;
+            color: white;
+            margin: 0;
+            padding: 0;
+            transition: background 0.5s ease;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .dark-mode {
+            background: var(--dark-bg);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glass-card:hover {
+            box-shadow: 0 8px 32px rgba(129, 91, 255, 0.3);
+            border: 1px solid rgba(129, 91, 255, 0.4);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 8px var(--neon-mint);
+        }
+        
+        .purple-glow {
+            box-shadow: 0 0 15px rgba(129, 91, 255, 0.7);
+        }
+        
+        .mint-glow {
+            box-shadow: 0 0 15px rgba(26, 255, 201, 0.7);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--neon-mint), var(--royal-purple));
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(26, 255, 201, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--neon-mint);
+            color: var(--neon-mint);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--neon-mint);
+            color: black;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .scroll-down-arrow {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        .typing {
+            overflow: hidden;
+            border-right: 2px solid var(--neon-mint);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon-mint); }
+        }
+        
+        .neon-flicker {
+            animation: neon-flicker 2s infinite alternate;
+        }
+        
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 8px var(--neon-mint), 0 0 16px var(--neon-mint);
+            }
+            20%, 24%, 55% {        
+                text-shadow: none;
+            }
+        }
+        
+        .stat-pill {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 3px solid var(--neon-mint);
+        }
+        
+        .testimonial-cube {
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        
+        .testimonial-cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+        }
+        
+        .timeline-card {
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-card.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(129, 91, 255, 0.5);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: var(--neon-mint);
+        }
+        
+        #threejs-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .dark-mode-toggle {
+            transition: all 0.5s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: rotate(180deg);
+        }
+        
+        .dark-mode-toggle.dark {
+            color: var(--neon-mint);
+        }
+        
+        .dark-mode-toggle.light {
+            color: #ffd700;
+        }
+        
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        @media (prefers-reduced-motion) {
+            .floating, .scroll-down-arrow, .typing, .neon-flicker, .testimonial-cube, .timeline-card {
+                animation: none !important;
+                transition: none !important;
+            }
+            
+            body {
+                animation: none !important;
+                background: linear-gradient(135deg, var(--sunrise-pink), var(--tangerine)) !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="fixed top-6 right-6 z-50 dark-mode-toggle light text-2xl p-2 rounded-full bg-black bg-opacity-20">
+        <i class="fas fa-sun"></i>
+    </button>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+        <div id="threejs-container"></div>
+        <div class="text-center z-10 max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 text-white neon-text">
+                <span class="inline-block overflow-hidden">
+                    <span class="inline-block slide-in">DESIGN</span>
+                </span>
+                <span class="inline-block overflow-hidden">
+                    <span class="inline-block slide-in">THAT</span>
+                </span>
+                <span class="inline-block overflow-hidden">
+                    <span class="inline-block slide-in">MOVES</span>
+                </span>
+                <span class="inline-block overflow-hidden">
+                    <span class="inline-block slide-in">METRICS</span>
+                </span>
+            </h1>
+            <p class="text-xl md:text-2xl mt-8 mb-12 typing neon-flicker">
+                UI/UX Designer • Marketing Strategist • Experience Architect
+            </p>
+            <div class="flex justify-center gap-4">
+                <button class="btn-primary px-8 py-4 rounded-full text-lg ripple">
+                    View Case Studies
+                </button>
+                <button class="btn-secondary px-8 py-4 rounded-full text-lg">
+                    Contact Me
+                </button>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-down-arrow">
+            <i class="fas fa-chevron-down text-3xl animate-bounce"></i>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="min-h-screen py-20 px-6 md:px-12 lg:px-24">
+        <h2 class="text-5xl md:text-7xl font-bold mb-20 text-center neon-text">ABOUT</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 opacity-70 animate-spin-slow"></div>
+                    <div class="absolute inset-2 rounded-full bg-black bg-opacity-70 flex items-center justify-center overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-3xl md:text-4xl font-bold mb-6">Innovation Through Design & Strategy</h3>
+                <p class="text-lg md:text-xl mb-8 leading-relaxed">
+                    With 12+ years at the intersection of design, marketing, and experiential production, I craft digital experiences that convert and live events that captivate. My hybrid expertise delivers measurable impact across the customer journey.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="stat-pill p-4 rounded-lg">
+                        <div class="text-4xl font-bold text-neon-mint count-up" data-target="7500">0</div>
+                        <div class="text-sm opacity-80">UI/UX Hours</div>
+                    </div>
+                    <div class="stat-pill p-4 rounded-lg">
+                        <div class="text-4xl font-bold text-neon-mint count-up" data-target="142">0</div>
+                        <div class="text-sm opacity-80">Campaigns Led</div>
+                    </div>
+                    <div class="stat-pill p-4 rounded-lg">
+                        <div class="text-4xl font-bold text-neon-mint count-up" data-target="68">0</div>
+                        <div class="text-sm opacity-80">Events Hosted</div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <button class="btn-primary px-6 py-3 rounded-full text-lg ripple">
+                        Download Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="min-h-screen py-20 px-6">
+        <h2 class="text-5xl md:text-7xl font-bold mb-20 text-center neon-text">CASE STUDIES</h2>
+        <div class="relative max-w-6xl mx-auto">
+            <div class="carousel-container overflow-x-auto py-10 px-4">
+                <div class="flex gap-8 carousel-track" style="width: 300%;">
+                    <!-- Case Study 1 -->
+                    <div class="glass-card w-full md:w-1/3 flex-shrink-0 p-8 transition-all duration-500 hover:transform hover:scale-105">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center mb-4">
+                                <i class="fas fa-mobile-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">FinTech App Redesign</h3>
+                            <p class="text-sm opacity-80">Mobile Banking Experience</p>
+                        </div>
+                        <p class="mb-6">
+                            Transformed engagement metrics by 62% through intuitive UX flows and behavioral psychology principles.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-black bg-opacity-30 px-3 py-1 rounded-full">UI/UX</span>
+                            <button class="text-neon-mint flex items-center">
+                                View Case <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Case Study 2 -->
+                    <div class="glass-card w-full md:w-1/3 flex-shrink-0 p-8 transition-all duration-500 hover:transform hover:scale-105">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center mb-4">
+                                <i class="fas fa-bullhorn text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Global Product Launch</h3>
+                            <p class="text-sm opacity-80">Integrated Marketing Campaign</p>
+                        </div>
+                        <p class="mb-6">
+                            Orchestrated 360° campaign that drove 42% conversion lift and $8.2M in incremental revenue.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-black bg-opacity-30 px-3 py-1 rounded-full">Marketing</span>
+                            <button class="text-neon-mint flex items-center">
+                                View Case <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Case Study 3 -->
+                    <div class="glass-card w-full md:w-1/3 flex-shrink-0 p-8 transition-all duration-500 hover:transform hover:scale-105">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center mb-4">
+                                <i class="fas fa-calendar-check text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Tech Conference</h3>
+                            <p class="text-sm opacity-80">5,000+ Attendee Experience</p>
+                        </div>
+                        <p class="mb-6">
+                            Designed immersive journey that achieved 94% attendee satisfaction and 35% social amplification.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-black bg-opacity-30 px-3 py-1 rounded-full">Events</span>
+                            <button class="text-neon-mint flex items-center">
+                                View Case <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center mt-12 gap-2">
+                <button class="carousel-prev w-12 h-12 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-next w-12 h-12 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Timeline -->
+    <section id="process" class="min-h-screen py-20 px-6">
+        <h2 class="text-5xl md:text-7xl font-bold mb-20 text-center neon-text">PROCESS</h2>
+        <div class="max-w-4xl mx-auto">
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-500 to-cyan-400"></div>
+                
+                <!-- Timeline Items -->
+                <div class="space-y-20">
+                    <!-- Item 1 -->
+                    <div class="relative flex items-center">
+                        <div class="hidden md:block w-1/2"></div>
+                        <div class="z-10 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="glass-card w-full md:w-1/2 p-8 ml-0 md:ml-8 timeline-card">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-search text-xl text-neon-mint"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">Discovery</h3>
+                            </div>
+                            <p>
+                                Deep dive into business objectives, user behaviors, and technical constraints through stakeholder interviews, analytics audit, and competitive analysis.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="relative flex items-center">
+                        <div class="glass-card w-full md:w-1/2 p-8 mr-0 md:mr-8 timeline-card">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-lightbulb text-xl text-neon-mint"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">Strategy</h3>
+                            </div>
+                            <p>
+                                Synthesize insights into actionable frameworks: user journeys, conversion funnels, and experience principles that align business and user goals.
+                            </p>
+                        </div>
+                        <div class="z-10 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="hidden md:block w-1/2"></div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="relative flex items-center">
+                        <div class="hidden md:block w-1/2"></div>
+                        <div class="z-10 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="glass-card w-full md:w-1/2 p-8 ml-0 md:ml-8 timeline-card">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-pencil-ruler text-xl text-neon-mint"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">Design</h3>
+                            </div>
+                            <p>
+                                Rapid prototyping of interfaces and interactions, validated through usability testing and iterative refinement of the experience.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4 -->
+                    <div class="relative flex items-center">
+                        <div class="glass-card w-full md:w-1/2 p-8 mr-0 md:mr-8 timeline-card">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-rocket text-xl text-neon-mint"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold">Execution</h3>
+                            </div>
+                            <p>
+                                Pixel-perfect implementation with design systems, developer handoff, and QA to ensure flawless deployment across platforms.
+                            </p>
+                        </div>
+                        <div class="z-10 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 absolute left-1/2 transform -translate-x-1/2"></div>
+                        <div class="hidden md:block w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section id="testimonials" class="min-h-screen py-20 px-6">
+        <h2 class="text-5xl md:text-7xl font-bold mb-20 text-center neon-text">TESTIMONIALS</h2>
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+                <div class="relative w-64 h-64 testimonial-cube">
+                    <!-- Front -->
+                    <div class="testimonial-cube-face bg-black bg-opacity-50 rounded-lg" style="transform: translateZ(100px);">
+                        <img src="https://logo.clearbit.com/google.com?size=80" alt="Google" class="w-32">
+                    </div>
+                    <!-- Right -->
+                    <div class="testimonial-cube-face bg-black bg-opacity-50 rounded-lg" style="transform: rotateY(90deg) translateZ(100px);">
+                        <img src="https://logo.clearbit.com/amazon.com?size=80" alt="Amazon" class="w-32">
+                    </div>
+                    <!-- Back -->
+                    <div class="testimonial-cube-face bg-black bg-opacity-50 rounded-lg" style="transform: rotateY(180deg) translateZ(100px);">
+                        <img src="https://logo.clearbit.com/microsoft.com?size=80" alt="Microsoft" class="w-32">
+                    </div>
+                    <!-- Left -->
+                    <div class="testimonial-cube-face bg-black bg-opacity-50 rounded-lg" style="transform: rotateY(-90deg) translateZ(100px);">
+                        <img src="https://logo.clearbit.com/apple.com?size=80" alt="Apple" class="w-32">
+                    </div>
+                    <!-- Top -->
+                    <div class="testimonial-cube-face bg-black bg-opacity-50 rounded-lg" style="transform: rotateX(90deg) translateZ(100px);">
+                        <img src="https://logo.clearbit.com/facebook.com?size=80" alt="Facebook" class="w-32">
+                    </div>
+                    <!-- Bottom -->
+                    <div class="testimonial-cube-face bg-black bg-opacity-50 rounded-lg" style="transform: rotateX(-90deg) translateZ(100px);">
+                        <img src="https://logo.clearbit.com/netflix.com?size=80" alt="Netflix" class="w-32">
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 max-w-md testimonial-quote">
+                    <div class="text-2xl mb-6 leading-relaxed">
+                        "Transformed our conversion funnel with intuitive UX that reduced drop-offs by 38% while increasing average order value."
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center mr-4">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold">Sarah Johnson</div>
+                            <div class="text-sm opacity-80">Director of Product, Google</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-12 gap-4">
+                <button class="testimonial-prev w-12 h-12 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="testimonial-next w-12 h-12 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section id="cta" class="py-32 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-70 z-0"></div>
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+             alt="Event Background" class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate Your Experience?</h2>
+            <p class="text-xl mb-12 max-w-2xl mx-auto">
+                Whether it's a digital product, marketing campaign, or live event—let's create something remarkable together.
+            </p>
+            <button class="btn-primary px-10 py-5 rounded-full text-xl ripple">
+                Schedule a Consultation
+            </button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-50 py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Let's Connect</h3>
+                    <p class="mb-6">
+                        Interested in collaborating or just want to chat about design and experiences? Reach out!
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-black bg-opacity-30 flex items-center justify-center">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-black bg-opacity-30 flex items-center justify-center">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-black bg-opacity-30 flex items-center justify-center">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-black bg-opacity-30 flex items-center justify-center">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-neon-mint transition">Home</a></li>
+                        <li><a href="#" class="hover:text-neon-mint transition">About</a></li>
+                        <li><a href="#" class="hover:text-neon-mint transition">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-neon-mint transition">Process</a></li>
+                        <li><a href="#" class="hover:text-neon-mint transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Newsletter</h3>
+                    <p class="mb-4">
+                        Get insights on design, marketing, and experiential strategy delivered to your inbox.
+                    </p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-3 bg-black bg-opacity-30 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-neon-mint w-full">
+                        <button type="submit" class="bg-neon-mint text-black px-4 rounded-r-lg font-bold">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-white border-opacity-10 mt-12 pt-8 text-center text-sm opacity-70">
+                <p>© 2025 Experience Design Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                darkModeToggle.classList.remove('light');
+                darkModeToggle.classList.add('dark');
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                darkModeToggle.classList.remove('dark');
+                darkModeToggle.classList.add('light');
+            }
+        });
+        
+        // Count Up Animation
+        const countUpElements = document.querySelectorAll('.count-up');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    const duration = 2000;
+                    const start = 0;
+                    const increment = target / (duration / 16);
+                    
+                    let current = start;
+                    const element = entry.target;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            clearInterval(timer);
+                            current = target;
+                        }
+                        element.textContent = Math.floor(current).toLocaleString();
+                    }, 16);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        countUpElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Carousel Navigation
+        const carouselTrack = document.querySelector('.carousel-track');
+        const carouselPrev = document.querySelector('.carousel-prev');
+        const carouselNext = document.querySelector('.carousel-next');
+        
+        let currentSlide = 0;
+        
+        carouselNext.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % 3;
+            updateCarousel();
+        });
+        
+        carouselPrev.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + 3) % 3;
+            updateCarousel();
+        });
+        
+        function updateCarousel() {
+            const offset = -currentSlide * 100;
+            carouselTrack.style.transform = `translateX(${offset}%)`;
+        }
+        
+        // Testimonial Cube Rotation
+        const testimonialCube = document.querySelector('.testimonial-cube');
+        const testimonialPrev = document.querySelector('.testimonial-prev');
+        const testimonialNext = document.querySelector('.testimonial-next');
+        const testimonialQuote = document.querySelector('.testimonial-quote');
+        
+        const quotes = [
+            {
+                text: '"Transformed our conversion funnel with intuitive UX that reduced drop-offs by 38% while increasing average order value."',
+                name: "Sarah Johnson",
+                title: "Director of Product, Google"
+            },
+            {
+                text: '"The marketing campaign delivered 3.2x ROI and became our highest-performing launch of the year."',
+                name: "Michael Chen",
+                title: "VP Marketing, Amazon"
+            },
+            {
+                text: '"Our conference achieved record attendance and engagement thanks to the immersive experience design."',
+                name: "David Wilson",
+                title: "Events Director, Microsoft"
+            },
+            {
+                text: '"The design system implementation saved our team 300+ hours annually in development time."',
+                name: "Emily Rodriguez",
+                title: "Design Lead, Apple"
+            },
+            {
+                text: '"User satisfaction scores jumped from 72% to 94% after the app redesign."',
+                name: "Robert Taylor",
+                title: "Product Manager, Facebook"
+            },
+            {
+                text: '"The experiential activation generated 1.2M social impressions and 15K leads."',
+                name: "Jennifer Lee",
+                title: "Brand Director, Netflix"
+            }
+        ];
+        
+        let currentFace = 0;
+        
+        testimonialNext.addEventListener('click', () => {
+            currentFace = (currentFace + 1) % 6;
+            rotateCube();
+            updateTestimonial();
+        });
+        
+        testimonialPrev.addEventListener('click', () => {
+            currentFace = (currentFace - 1 + 6) % 6;
+            rotateCube();
+            updateTestimonial();
+        });
+        
+        function rotateCube() {
+            const angle = currentFace * 90;
+            testimonialCube.style.transform = `rotateY(${angle}deg)`;
+        }
+        
+        function updateTestimonial() {
+            const quote = quotes[currentFace];
+            testimonialQuote.innerHTML = `
+                <div class="text-2xl mb-6 leading-relaxed">"${quote.text}"</div>
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center mr-4">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold">${quote.name}</div>
+                        <div class="text-sm opacity-80">${quote.title}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Ripple Effect
+        const buttons = document.querySelectorAll('.ripple');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const x = e.clientX - e.target.getBoundingClientRect().left;
+                const y = e.clientY - e.target.getBoundingClientRect().top;
+                
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple-effect');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // Three.js Background
+        const threeContainer = document.getElementById('threejs-container');
+        
+        if (threeContainer) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            threeContainer.appendChild(renderer.domElement);
+            
+            // Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1000;
+            
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            camera.position.z = 5;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particlesMesh.rotation.x += 0.0005;
+                particlesMesh.rotation.y += 0.0005;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Konami Code Easter Egg
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                
+                if (konamiIndex === konamiCode.length) {
+                    // Trigger Easter Egg
+                    document.body.classList.add('konami');
+                    setTimeout(() => {
+                        document.body.classList.remove('konami');
+                    }, 3000);
+                    
+                    // Reset index
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</body>
+</html>
