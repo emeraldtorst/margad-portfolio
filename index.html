@@ -586,19 +586,6 @@
             });
         });
         
-        // Glitch effect on random intervals
-        setInterval(() => {
-            const glitchElements = document.querySelectorAll('.animate-text-glitch');
-            glitchElements.forEach(element => {
-                if (Math.random() > 0.7) {
-                    element.style.animation = 'text-glitch 0.5s linear';
-                    setTimeout(() => {
-                        element.style.animation = 'text-glitch 1s linear infinite';
-                    }, 500);
-                }
-            });
-        }, 3000);
-        
         // Resize handler
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
